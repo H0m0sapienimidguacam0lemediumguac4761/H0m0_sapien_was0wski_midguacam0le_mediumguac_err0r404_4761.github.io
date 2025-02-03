@@ -7,14 +7,23 @@
   <title>Home</title>
 </head>
 <body>
+  <button id="logout">Logout</button>
+
+<script>
+  document.getElementById("logout").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "/login.html";
+  });
+</script>
+
   <div class="home-container">
-    <h1>Welcome to the Private Proxy</h1>
+    <h1>Welcome to the H0m0 server</h1>
     <div class="nav">
       <a href="/gba-emulator.html">GBA Emulator</a>
       <a href="/binary-translator.html">Binary Translator</a>
       <a href="/game-library.html">Game Library</a>
     </div>
-    <p>Your private proxy is ad-free and secure!</p>
+    <p>H0m0_sapien_was0wski_midguacam0le_mediumguac_err0r404_4761</p>
   </div>
 </body>
 </html>
