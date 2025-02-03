@@ -1,0 +1,14 @@
+{
+  "name": "private-proxy",
+  "version": "1.0.0",
+  "description": "A private proxy with login, security, and utilities",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "bcrypt": "^5.1.0"
+  }
+}
