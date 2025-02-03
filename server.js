@@ -1,15 +1,22 @@
+require("dotenv").config();
 const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
+const cors = require("cors");
 const path = require("path");
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 
-const SECRET_TOKEN = "H0m0-sapien-was0wski-iam-fatape-4761-midguacam0le-mediumguac.gwithub.i0";
-const USERNAME = "Inter_forks";
-const PASSWORD_HASH = bcrypt.hashSync("Toilet4761", 10); // Hash the password for security
+// Load environment variables
+const SECRET_TOKEN = process.env.SECRET_TOKEN;
+const USERNAME = process.env.ADMIN_USERNAME;
+const PASSWORD_HASH = bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10);
 
+// Block access to backend files
+app.use("/server.js", (req, res) => res.status(403).send("Access Denied"));
+app.use("/.env", (req, res) => res.status(403).send("Access Denied"));
+app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -42,7 +49,14 @@ app.get("/home", authenticateToken, (req, res) => {
   res.sendFile(path.join(__dirname, "public/home.html"));
 });
 
-// Start server
+// Admin-only route
+app.get("/admin", authenticateToken, (req, res) => {
+  if (req.user.username !== USERNAME) {
+    return res.status(403).json({ message: "Access denied" });
+  }
+  res.send("Welcome to the admin panel!");
+});
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });
