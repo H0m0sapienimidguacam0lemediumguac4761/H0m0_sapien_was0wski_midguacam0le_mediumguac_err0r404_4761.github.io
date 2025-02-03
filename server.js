@@ -16,6 +16,9 @@ const PASSWORD_HASH = bcrypt.hashSync(process.env.ADMIN_PASSWORD, 10);
 app.use(cors());
 app.use(express.json());
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/server.js", (req, res) => res.status(403).send("Access Denied"));
+app.use("/.env", (req, res) => res.status(403).send("Access Denied"));
+
 
 // Login route
 app.post("/api/login", (req, res) => {
